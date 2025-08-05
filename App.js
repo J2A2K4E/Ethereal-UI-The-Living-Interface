@@ -62,3 +62,85 @@ export class App {
     this.composer.render();
   }
 }
+
+// In App.js, enhance the SSAO pass setup
+this.ssaoPass = new SSAOPass(this.scene, this.camera, window.innerWidth, window.innerHeight);
+this.ssaoPass.kernelRadius = 0.5;
+this.ssaoPass.minDistance = 0.0001;
+this.ssaoPass.maxDistance = 0.01;
+this.ssaoPass.output = SSAOPass.OUTPUT.Default;
+
+// Configure kernel and noise
+this.ssaoPass.kernelSize = 32;
+this.ssaoPass.noiseTexture = this.generateNoiseTexture(4);
+this.composer.addPass(this.ssaoPass);
+
+// Helper method to generate noise texture
+generateNoiseTexture(size) {
+  const data = new Uint8Array(size * size * 3);
+  for (let i = 0; i < size * size * 3; i++) {
+    data[i] = Math.random() * 255;
+  }
+  const texture = new THREE.DataTexture(data, size, size, THREE.RGBFormat);
+  texture.needsUpdate = true;
+  return texture;
+}
+
+// In App.js, enhance the SSAO pass setup
+this.ssaoPass = new SSAOPass(this.scene, this.camera, window.innerWidth, window.innerHeight);
+this.ssaoPass.kernelRadius = 0.5;
+this.ssaoPass.minDistance = 0.0001;
+this.ssaoPass.maxDistance = 0.01;
+this.ssaoPass.output = SSAOPass.OUTPUT.Default;
+
+// Configure kernel and noise
+this.ssaoPass.kernelSize = 32;
+this.ssaoPass.noiseTexture = this.generateNoiseTexture(4);
+this.composer.addPass(this.ssaoPass);
+
+// Helper method to generate noise texture
+generateNoiseTexture(size) {
+  const data = new Uint8Array(size * size * 3);
+  for (let i = 0; i < size * size * 3; i++) {
+    data[i] = Math.random() * 255;
+  }
+  const texture = new THREE.DataTexture(data, size, size, THREE.RGBFormat);
+  texture.needsUpdate = true;
+  return texture;
+}
+
+// For multiple buttons or cards
+const buttonGeometry = new THREE.RoundedBoxGeometry(2, 0.8, 0.2, 5, 0.1);
+const buttonMaterial = new THREE.MeshStandardMaterial({ color: 0x4a6cf7 });
+const buttonMesh = new THREE.InstancedMesh(buttonGeometry, buttonMaterial, 100);
+
+// Set positions for each instance
+const dummy = new THREE.Object3D();
+for (let i = 0; i < 100; i++) {
+  dummy.position.set((i % 10) * 2.5 - 12.5, Math.floor(i / 10) * -1.5 + 5, 0);
+  dummy.updateMatrix();
+  buttonMesh.setMatrixAt(i, dummy.matrix);
+}
+this.scene.add(buttonMesh);
+
+const lod = new THREE.LOD();
+
+// High detail (close to camera)
+const highDetailGeometry = new THREE.BoxGeometry(2, 0.8, 0.2, 32, 32);
+const highDetailMesh = new THREE.Mesh(highDetailGeometry, material);
+lod.addLevel(highDetailMesh, 0);
+
+// Medium detail
+const medDetailGeometry = new THREE.BoxGeometry(2, 0.8, 0.2, 16, 16);
+const medDetailMesh = new THREE.Mesh(medDetailGeometry, material);
+lod.addLevel(medDetailMesh, 10);
+
+// Low detail (far from camera)
+const lowDetailGeometry = new THREE.BoxGeometry(2, 0.8, 0.2, 8, 8);
+const lowDetailMesh = new THREE.Mesh(lowDetailGeometry, material);
+lod.addLevel(lowDetailMesh, 20);
+
+this.scene.add(lod);
+
+
+
