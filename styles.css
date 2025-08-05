@@ -1,0 +1,183 @@
+/* Base Styles */
+:root {
+  --primary-color: #4a6cf7;
+  --primary-glow: #7d9eff;
+  --background-dark: #0a0a12;
+  --background-light: #1a1a2e;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+/* UI Overlay Styles */
+.ui-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ui-overlay * {
+  pointer-events: auto;
+}
+
+.ui-title {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(10, 10, 18, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.ui-title h1 {
+  font-size: 3rem;
+  margin: 0;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-glow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
+}
+
+.ui-title .subtitle {
+  margin: 8px 0 0;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* Tooltip */
+.ui-tooltip {
+  position: absolute;
+  padding: 8px 12px;
+  background: rgba(10, 10, 18, 0.9);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  max-width: 200px;
+}
+
+.ui-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Controls */
+.ui-controls {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.control-group {
+  background: rgba(10, 10, 18, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: 240px;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.control-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(74, 108, 247, 0.3);
+  transition: box-shadow 0.2s ease;
+}
+
+.control-group input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 4px rgba(74, 108, 247, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .ui-title {
+    width: 90%;
+    padding: 16px;
+  }
+  
+  .ui-title h1 {
+    font-size: 2rem;
+  }
+  
+  .ui-title .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .ui-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 0 20px;
+  }
+  
+  .control-group {
+    width: 100%;
+    max-width: 240px;
+  }
+}
+
+/* Animation Classes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Hide elements that will be positioned in 3D space */
+[data-3d-position] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+[data-3d-position].visible {
+  opacity: 1;
+}
