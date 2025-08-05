@@ -1,0 +1,23 @@
+ethereal-ui/
+├── public/
+│   ├── assets/
+│   │   ├── shaders/
+│   │   │   ├── ssao.frag
+│   │   │   ├── ssao.vert
+│   │   │   ├── volumetric.frag
+│   │   │   └── ...
+│   ├── index.html
+├── src/
+│   ├── components/
+│   │   ├── Button3D.js
+│   │   ├── Card3D.js
+│   │   ├── InputField3D.js
+│   │   └── ...
+│   ├── systems/
+│   │   ├── LightingSystem.js
+│   │   ├── InteractionSystem.js
+│   │   └── ...
+│   ├── App.js
+│   └── main.js
+├── package.json
+└── vite.config.js
